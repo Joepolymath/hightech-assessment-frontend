@@ -52,6 +52,7 @@ const Home = () => {
               user: `${mail.user.firstName} ${mail.user.lastName}`,
               profileImage: mail.user.profileImage,
               createdAt: mail.createdAt,
+              _id: mail._id,
             })
           );
 
