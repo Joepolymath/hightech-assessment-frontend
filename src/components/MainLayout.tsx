@@ -3,7 +3,7 @@ import Main from './Main';
 
 const MainLayout = () => {
   return (
-    <div className="w-10/12 h-screen flex h-[90vh] bg-blue-200">
+    <div className="w-full lg:w-10/12 h-full flex  bg-blue-200">
       <SideNav />
       <Main />
     </div>
