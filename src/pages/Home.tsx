@@ -12,6 +12,7 @@ import {
 import { ThreeDots } from 'react-loader-spinner';
 
 export interface IMessage extends Document {
+  _id: string;
   user: any;
   subject: string;
   content: string;
@@ -43,7 +44,6 @@ const Home = () => {
       })
       .then((result) => {
         if (result.status === 'success') {
-          console.log({ result });
           const mailsData: ISingleMessage[] = result.data.map(
             (mail: IMessage) => ({
               subject: mail.subject,

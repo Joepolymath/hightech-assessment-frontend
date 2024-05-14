@@ -2,6 +2,7 @@ import TimeAgo from 'react-timeago';
 import './EmailCard.css';
 
 interface Prop {
+  _id: string;
   image?: string;
   from?: string;
   time?: string;
@@ -11,7 +12,7 @@ interface Prop {
   isSelected?: boolean;
   isRead: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onClick?: any;
+  //   onClick?: any;
 }
 
 export default function EmailCard(props: Prop) {

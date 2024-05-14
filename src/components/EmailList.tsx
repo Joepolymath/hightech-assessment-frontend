@@ -8,6 +8,7 @@ import { ISingleMessage, MessageState } from '../features/emails/mailSlice';
 import { IMessage } from '../pages/Home';
 import { toast } from 'react-toastify';
 import { ThreeDots } from 'react-loader-spinner';
+import { Link } from 'react-router-dom';
 
 export default function EmailList() {
   const mails = useAppSelector((state) => state.mails);
@@ -35,9 +36,9 @@ export default function EmailList() {
         })
         .then((result) => {
           if (result.status === 'success') {
-            console.log({ result });
             const mailsData: ISingleMessage[] = result.data.map(
               (mail: IMessage) => ({
+                _id: mail._id,
                 subject: mail.subject,
                 content: mail.content,
                 isRead: mail.isRead,
@@ -97,15 +98,18 @@ export default function EmailList() {
           </div>
           <div className="flex flex-col px-10 pb-10 overflow-y-auto">
             {mailsData.messages.map((email, index) => (
-              <EmailCard
-                key={index}
-                from={email.user}
-                subject={email.subject}
-                body={email.content}
-                isRead={email.isRead}
-                image={email.profileImage}
-                time={email.createdAt}
-              />
+              <Link to={`/email/${email._id}`}>
+                <EmailCard
+                  _id={email._id}
+                  key={index}
+                  from={email.user}
+                  subject={email.subject}
+                  body={email.content}
+                  isRead={email.isRead}
+                  image={email.profileImage}
+                  time={email.createdAt}
+                />
+              </Link>
             ))}
           </div>
         </>

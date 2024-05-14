@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { logout } from '../features/auth/authSlice';
+import { Link } from 'react-router-dom';
 
 export default function ContentHeader() {
   const user = useAppSelector((state) => state.auth);
@@ -10,11 +11,13 @@ export default function ContentHeader() {
   return (
     <nav className="bg-dark-500 flex items-center  justify-between py-6 px-10 mb-1 border-b-[1px] border-white">
       <div>
-        <img
-          src="https://media.licdn.com/dms/image/C4D0BAQF_P0o2s2QMUQ/company-logo_200_200/0/1630546112985/mbl_hightech_logo?e=1723680000&v=beta&t=yIHdhgIXsfeafvbbbCwDKYe0hCnCRZlK4ihotKkC-68"
-          alt="logo"
-          className="w-10 h-10"
-        />
+        <Link to={'/'}>
+          <img
+            src="https://media.licdn.com/dms/image/C4D0BAQF_P0o2s2QMUQ/company-logo_200_200/0/1630546112985/mbl_hightech_logo?e=1723680000&v=beta&t=yIHdhgIXsfeafvbbbCwDKYe0hCnCRZlK4ihotKkC-68"
+            alt="logo"
+            className="w-10 h-10"
+          />
+        </Link>
       </div>
       <div className="flex items-center">
         <div className="w-8 h-8 bg-blue-200 rounded-xl ml-8 mr-4"></div>

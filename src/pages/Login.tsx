@@ -52,7 +52,6 @@ const Login = () => {
       .then((result) => {
         if (result.status === 'success') {
           toast('Login Successful');
-          console.log({ result });
           const data: AuthState = {
             isAuthenticated: true,
             firstName: result.data.firstName,
