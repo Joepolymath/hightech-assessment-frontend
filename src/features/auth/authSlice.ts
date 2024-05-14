@@ -2,7 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../app/store';
 
-interface AuthState {
+const localStorageData = JSON.parse(localStorage.getItem('user')!);
+
+export interface AuthState {
   isAuthenticated: boolean;
   firstName?: string;
   lastName?: string;
@@ -10,9 +12,21 @@ interface AuthState {
   token?: string;
 }
 
-const initialState: AuthState = {
-  isAuthenticated: false,
-};
+let initialState: AuthState;
+
+if (localStorageData) {
+  initialState = {
+    isAuthenticated: localStorageData.isAuthenticated,
+    firstName: localStorageData.firstName,
+    lastName: localStorageData.lastName,
+    email: localStorageData.email,
+    token: localStorageData.token,
+  };
+} else {
+  initialState = {
+    isAuthenticated: false,
+  };
+}
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -25,14 +39,16 @@ export const authSlice = createSlice({
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
       state.token = action.payload.token;
+      localStorage.setItem('user', JSON.stringify(state));
     },
     logout(state) {
       state.isAuthenticated = false;
+      localStorage.clear();
     },
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { logout, login } = authSlice.actions;
 
 export const selectAuth = (state: RootState) => state;
 

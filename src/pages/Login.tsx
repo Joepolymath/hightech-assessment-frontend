@@ -1,4 +1,9 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ThreeDots } from 'react-loader-spinner';
+import { useAppDispatch } from '../app/hooks';
+import { AuthState, login } from '../features/auth/authSlice';
 
 interface ILoginData {
   email: string;
@@ -6,12 +11,16 @@ interface ILoginData {
 }
 
 const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [loginData, setLoginData] = useState<ILoginData>({
     email: '',
     password: '',
   });
+  const [loading, setLoading] = useState<boolean>(false);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
+    console.log(import.meta.env.VITE_BACKEND_URL);
     setLoginData((prev: ILoginData) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -20,6 +29,47 @@ const Login = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+
+    const raw = JSON.stringify(loginData);
+
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+    };
+    fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/auth/users/login`,
+      requestOptions
+    )
+      .then((response) => {
+        //  setLoading(false);
+        const data = response.json();
+        return data;
+      })
+      .then((result) => {
+        if (result.status === 'success') {
+          // toast('Login Successful');
+          console.log({ result });
+          const data: AuthState = {
+            isAuthenticated: true,
+            firstName: result.data.firstName,
+            lastName: result.data.lastName,
+            email: result.data.email,
+            token: result.data.accessToken,
+          };
+          dispatch(login(data));
+          navigate('/');
+        } else {
+          // toast(result.message);
+        }
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log('THIS IS AN ERROR', error);
+        return console.error(error);
+      });
   };
 
   return (
@@ -47,12 +97,26 @@ const Login = () => {
             placeholder="Password"
             className="w-full p-3 m-2 rounded-md"
             value={loginData.password}
+            onChange={handleChange}
           />
           <button
             type="submit"
             className="bg-blue-200 p-2 rounded-lg text-white w-1/4 mx-auto my-5"
           >
-            Login
+            {loading ? (
+              <ThreeDots
+                visible={true}
+                height="80"
+                width="80"
+                color="#4F46E5"
+                radius="9"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            ) : (
+              'Login'
+            )}
           </button>
         </form>
       </div>
