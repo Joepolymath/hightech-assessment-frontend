@@ -8,7 +8,6 @@ const Main = () => {
       <ContentHeader />
       <div className="flex flex-row" style={{ height: 'calc(100% - 84px)' }}>
         <EmailList />
-        {/* <EmailDetails /> */}
       </div>
     </main>
   );

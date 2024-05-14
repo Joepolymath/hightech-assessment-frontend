@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ThreeDots } from 'react-loader-spinner';
 import { useAppDispatch } from '../app/hooks';
 import { AuthState, login } from '../features/auth/authSlice';
+import { toast } from 'react-toastify';
 
 interface ILoginData {
   email: string;
@@ -50,7 +51,7 @@ const Login = () => {
       })
       .then((result) => {
         if (result.status === 'success') {
-          // toast('Login Successful');
+          toast('Login Successful');
           console.log({ result });
           const data: AuthState = {
             isAuthenticated: true,
@@ -62,7 +63,7 @@ const Login = () => {
           dispatch(login(data));
           navigate('/');
         } else {
-          // toast(result.message);
+          toast(result.message);
         }
       })
       .catch((error) => {
