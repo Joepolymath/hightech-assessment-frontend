@@ -11,7 +11,7 @@ interface Prop {
   hasAttachment?: boolean;
   isSelected?: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onClick: any;
+  onClick?: any;
 }
 
 export default function EmailCard(props: Prop) {

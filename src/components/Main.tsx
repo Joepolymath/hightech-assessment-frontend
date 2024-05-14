@@ -1,5 +1,5 @@
 import ContentHeader from './ContentHeader';
-import EmailDetails from './EmailDetails';
+// import EmailDetails from './EmailDetails';
 import EmailList from './EmailList';
 
 const Main = () => {
@@ -8,7 +8,7 @@ const Main = () => {
       <ContentHeader />
       <div className="flex flex-row" style={{ height: 'calc(100% - 84px)' }}>
         <EmailList />
-        <EmailDetails />
+        {/* <EmailDetails /> */}
       </div>
     </main>
   );
