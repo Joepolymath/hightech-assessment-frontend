@@ -97,11 +97,11 @@ export default function EmailList() {
             />
           </div>
           <div className="flex flex-col px-10 pb-10 overflow-y-auto">
-            {mailsData.messages.map((email, index) => (
+            {mailsData.messages.map((email) => (
               <Link to={`/email/${email._id}`}>
                 <EmailCard
                   _id={email._id}
-                  key={index}
+                  key={email._id}
                   from={email.user}
                   subject={email.subject}
                   body={email.content}
