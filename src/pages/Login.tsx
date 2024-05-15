@@ -30,6 +30,7 @@ const Login = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -40,6 +41,7 @@ const Login = () => {
       headers: myHeaders,
       body: raw,
     };
+
     fetch(
       `${import.meta.env.VITE_BACKEND_URL}/auth/users/login`,
       requestOptions
@@ -64,6 +66,7 @@ const Login = () => {
         } else {
           toast(result.message);
         }
+        setLoading(false);
       })
       .catch((error) => {
         setLoading(false);
@@ -104,16 +107,18 @@ const Login = () => {
             className="bg-blue-200 p-2 rounded-lg text-white w-1/4 mx-auto my-5"
           >
             {loading ? (
-              <ThreeDots
-                visible={true}
-                height="80"
-                width="80"
-                color="#4F46E5"
-                radius="9"
-                ariaLabel="three-dots-loading"
-                wrapperStyle={{}}
-                wrapperClass=""
-              />
+              <div className="flex items-center justify-center">
+                <ThreeDots
+                  visible={true}
+                  height="20"
+                  width="60"
+                  color="#4F46E5"
+                  radius="6"
+                  ariaLabel="three-dots-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                />
+              </div>
             ) : (
               'Login'
             )}
