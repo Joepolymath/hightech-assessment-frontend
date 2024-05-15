@@ -92,6 +92,7 @@ const Login = () => {
             className="w-full p-3 m-2 rounded-md"
             onChange={handleChange}
             value={loginData.email}
+            required
           />
           <input
             type="password"
@@ -101,6 +102,7 @@ const Login = () => {
             className="w-full p-3 m-2 rounded-md"
             value={loginData.password}
             onChange={handleChange}
+            required
           />
           <button
             type="submit"
